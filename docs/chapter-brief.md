@@ -15,7 +15,17 @@ Input: a chapter file `site/src/content/chapters/NN-slug.md` that has front-matt
 1. Cover EVERY item in `lectures:` — they are the syllabus — but merge small lectures (demos, "console tour") into one short step list or note. Do not make a subsection per lecture.
 2. Facts come from AWS documentation. Before writing, load and use `mcp__plugin_aws-core_aws-mcp__aws___search_documentation` / `aws___read_documentation` for each service. Never invent limits, prices or feature names. For numbers that change (quotas, prices) write "check the current quota" and link the docs page.
 3. Keep `kind`, `section`, `title`, `part`, `lectures` unchanged. Set `status: done` and a realistic `readingTime` (minutes, 4–12) only when finished.
-4. Quiz in front-matter `quiz:` — 5 questions for concept chapters, 3 for lab/intro. Short scenario (1–2 sentences), 3–4 options, `answer` is the 0-based index of the right option, `explanation` in 1–3 sentences that says why it is right and why the main wrong option is wrong. Original wording.
+4. Quiz in front-matter `quiz:` — 5 questions for concept chapters, 3 for lab/intro. Short scenario (1–2 sentences), 3–4 options, `answer` is the 0-based index of the right option, `explanation` in 1–3 sentences that says why it is right and why the main wrong option is wrong. Original wording. Exact YAML shape (keys must be exactly these):
+```yaml
+quiz:
+  - question: "Short scenario ending in a question?"
+    options:
+      - "Option A"
+      - "Option B"
+      - "Option C"
+    answer: 1
+    explanation: "Why B is right and why the main wrong option is wrong."
+```
 5. Link at least one page on https://docs.aws.amazon.com/ under `## AWS docs` (2–5 links). Internal links to other chapters use `/chapters/NN-slug/` and must exist.
 6. Headings: `##` for template sections exactly as named below (the validator matches the text). Do not use `#` in the body. Use `###` sparingly.
 7. Do not copy passages from AWS docs; paraphrase.
