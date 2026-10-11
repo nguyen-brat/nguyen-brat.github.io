@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+import '../styles/global.css';
+import parts from '../data/parts.json';
+
+interface Props { title: string; current?: string }
+const { title, current } = Astro.props;
+const chapters = (await getCollection('chapters')).sort((a, b) => a.data.section - b.data.section);
+const extras = (await getCollection('extras')).sort((a, b) => a.data.order - b.data.order);
+const currentSection = chapters.find((c) => c.id === current)?.data.section;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · AWS Reading Course</title>
+  </head>
+  <body>
+    <header class="top">
+      <button id="menu" aria-label="Toggle menu">☰</button>
+      <a class="brand" href="/">AWS Reading Course</a>
+      <div id="search"></div>
+    </header>
+    <div class="shell">
+      <nav class="side" id="side" aria-label="Chapters">
+        {parts.map((p) => {
+          const items = chapters.filter((c) => c.data.section >= p.from && c.data.section <= p.to);
+          const open = currentSection !== undefined && currentSection >= p.from && currentSection <= p.to;
+          return (
+            <details open={open}>
+              <summary>{p.name}</summary>
+              <ul>
+                {items.map((c) => (
+                  <li><a href={`/chapters/${c.id}/`} aria-current={c.id === current ? 'page' : undefined}>{c.data.section}. {c.data.title}</a></li>
+                ))}
+              </ul>
+            </details>
+          );
+        })}
+        <div class="extras">
+          {extras.map((e) => <a href={`/guide/${e.id}/`}>{e.data.title}</a><br />)}
+        </div>
+      </nav>
+      <main data-pagefind-body><slot /></main>
+    </div>
+    <script>
+      document.getElementById('menu')?.addEventListener('click', () => document.getElementById('side')?.classList.toggle('open'));
+
+      async function initSearch() {
+        const el = document.getElementById('search');
+        try {
+          const css = document.createElement('link');
+          css.rel = 'stylesheet';
+          css.href = '/pagefind/pagefind-ui.css';
+          document.head.append(css);
+          await new Promise((res, rej) => {
+            const s = document.createElement('script');
+            s.src = '/pagefind/pagefind-ui.js';
+            s.onload = res;
+            s.onerror = rej;
+            document.head.append(s);
+          });
+          // @ts-expect-error provided by pagefind-ui.js
+          new PagefindUI({ element: '#search', showSubResults: true });
+        } catch {
+          if (el) el.textContent = 'Search works after a build';
+        }
+      }
+      initSearch();
+
+      const blocks = document.querySelectorAll('pre[data-language="mermaid"], pre.language-mermaid');
+      if (blocks.length) {
+        const { default: mermaid } = await import('mermaid');
+        mermaid.initialize({ startOnLoad: false, theme: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default' });
+        let i = 0;
+        for (const pre of blocks) {
+          const { svg } = await mermaid.render(`mmd${i++}`, pre.textContent ?? '');
+          const div = document.createElement('div');
+          div.className = 'diagram';
+          div.innerHTML = svg;
+          pre.replaceWith(div);
+        }
+      }
+    </script>
+  </body>
+</html>

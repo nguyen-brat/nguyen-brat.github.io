@@ -1,0 +1,20 @@
+---
+interface Q { question: string; options: string[]; answer: number; explanation: string }
+const { questions } = Astro.props as { questions: Q[] };
+const letters = 'ABCDE';
+---
+{questions.length > 0 && (
+  <section class="quiz">
+    <h2>Practice questions</h2>
+    {questions.map((q, i) => (
+      <div class="q">
+        <p><strong>{i + 1}.</strong> {q.question}</p>
+        <ol type="A">{q.options.map((o) => <li>{o}</li>)}</ol>
+        <details>
+          <summary>Show answer</summary>
+          <p><strong>Answer: {letters[q.answer]}.</strong> {q.explanation}</p>
+        </details>
+      </div>
+    ))}
+  </section>
+)}
