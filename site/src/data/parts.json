@@ -1,0 +1,16 @@
+[
+  { "name": "Getting Started", "from": 1, "to": 3 },
+  { "name": "Identity & Access", "from": 4, "to": 4 },
+  { "name": "Networking Basics", "from": 5, "to": 5 },
+  { "name": "Compute & Containers", "from": 6, "to": 9 },
+  { "name": "Storage", "from": 10, "to": 18 },
+  { "name": "Databases", "from": 19, "to": 25 },
+  { "name": "Scaling & Monitoring", "from": 26, "to": 28 },
+  { "name": "Advanced Networking & Data Transfer", "from": 29, "to": 34 },
+  { "name": "Serverless & Messaging", "from": 35, "to": 38 },
+  { "name": "Security & Infrastructure as Code", "from": 39, "to": 43 },
+  { "name": "CI/CD", "from": 44, "to": 47 },
+  { "name": "Edge, AI & Multi-Account", "from": 48, "to": 52 },
+  { "name": "Disaster Recovery", "from": 53, "to": 58 },
+  { "name": "Capstone & Exam Prep", "from": 59, "to": 60 }
+]
