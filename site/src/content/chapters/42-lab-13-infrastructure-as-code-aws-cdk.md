@@ -168,7 +168,7 @@ cdk destroy --all
 
 ## AWS docs
 
-- [Deploy AWS CDK applications](https://docs.aws.amazon.com/cdk/v2/guide/deploy.md)
-- [AWS CDK constructs](https://docs.aws.amazon.com/cdk/v2/guide/constructs.md)
-- [AWS CDK CLI command reference](https://docs.aws.amazon.com/cdk/v2/guide/ref-cli-cmd.md)
-- [Bootstrapping environments for AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping-env.md)
+- [Deploy AWS CDK applications](https://docs.aws.amazon.com/cdk/v2/guide/deploy.html)
+- [AWS CDK constructs](https://docs.aws.amazon.com/cdk/v2/guide/constructs.html)
+- [AWS CDK CLI command reference](https://docs.aws.amazon.com/cdk/v2/guide/ref-cli-cmd.html)
+- [Bootstrapping environments for AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping-env.html)

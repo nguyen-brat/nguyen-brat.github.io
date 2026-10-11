@@ -38,7 +38,7 @@ quiz:
       - "Classic Load Balancer"
       - "An internet gateway"
     answer: 1
-    explanation: "Gateway Load Balancer endpoint services are for inline appliances; NLB is for ordinary services. An ALB is not a direct endpoint service target in the classic setup."
+    explanation: "Gateway Load Balancer endpoint services are for inline appliances; NLB is for ordinary services. An endpoint service is fronted by an NLB or a GWLB, not by an ALB directly; to expose an ALB, register it as a target of an NLB."
   - question: "The bill for a consumer-side interface endpoint shows two charges. What are they?"
     options:
       - "A one-time creation fee and a monthly support fee"

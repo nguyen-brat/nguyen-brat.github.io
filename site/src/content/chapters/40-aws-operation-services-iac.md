@@ -153,7 +153,7 @@ Pick **CloudFormation** when you want plain, AWS-native templates. Pick **CDK** 
 
 ## AWS docs
 
-- [Working with CloudFormation templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-guide.md)
-- [View CloudFormation stack events and status codes](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/view-stack-events.md)
-- [cdk synthesize](https://docs.aws.amazon.com/cdk/v2/guide/ref-cli-cmd-synth.md)
+- [Working with CloudFormation templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-guide.html)
+- [View CloudFormation stack events and status codes](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/view-stack-events.html)
+- [cdk synthesize](https://docs.aws.amazon.com/cdk/v2/guide/ref-cli-cmd-synth.html)
 - [What is AWS Elastic Beanstalk?](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html)
