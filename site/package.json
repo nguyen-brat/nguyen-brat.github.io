@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "scaffold": "node scripts/scaffold-chapters.mjs",
     "check": "node scripts/check-content.mjs",
-    "test": "node --test scripts/"
+    "test": "node --test scripts/*.test.mjs"
   },
   "dependencies": {
     "astro": "^7.3.8",
