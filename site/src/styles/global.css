@@ -20,7 +20,7 @@ a { color: var(--accent-fg); }
 .side li a { display: block; padding: 3px 8px; border-radius: 6px; text-decoration: none; color: var(--fg); }
 .side li a[aria-current='page'] { background: var(--accent); color: #1b1f24; font-weight: 600; }
 .extras { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 8px; }
-main { padding: 24px clamp(16px, 4vw, 48px) 64px; max-width: 860px; }
+main { min-width: 0; padding: 24px clamp(16px, 4vw, 48px) 64px; max-width: 860px; }
 h1 { font-size: 2rem; line-height: 1.25; margin: .2em 0 .4em; }
 .prose h2 { margin-top: 2em; padding-bottom: 4px; border-bottom: 1px solid var(--line); }
 .prose table { border-collapse: collapse; display: block; overflow-x: auto; }
@@ -42,9 +42,11 @@ h1 { font-size: 2rem; line-height: 1.25; margin: .2em 0 .4em; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
 .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; }
 @media (max-width: 860px) {
-  .shell { grid-template-columns: 1fr; }
+  .shell { grid-template-columns: minmax(0, 1fr); }
   #menu { display: inline-block; }
   .side { display: none; position: fixed; inset: 53px 0 0 0; max-height: none; background: var(--bg); z-index: 9; }
   .side.open { display: block; }
   #search { min-width: 0; flex: 1; }
 }
+.prose, .quiz { overflow-wrap: anywhere; }
+.prose pre, .prose pre code { overflow-wrap: normal; }
