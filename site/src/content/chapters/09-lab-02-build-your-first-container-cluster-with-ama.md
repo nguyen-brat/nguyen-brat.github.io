@@ -7,7 +7,7 @@ status: done
 readingTime: 8
 lectures: ["Intro","Docker Build & Run","Docker Expose","Docker Common Commands","Create Amazon ECS Cluster","Key Components & Concepts","Create Task Definition for EC2 Launch Type","Launch and Configure EC2 Optimized Instance for ECS","Verify ECS Service is Working","Launch and Observe Graviton EC2 Optimized Instance for ECS Cluster","Using AWS Fargate with Amazon ECS","Hosting Container Image with Amazon ECR","ECR Repo Namespace","Clean Up!"]
 quiz:
-  - q: "You run a service on the EC2 launch type and a teammate says the cluster shows zero registered container instances. The EC2 instance is running with the ECS-optimized AMI. What is the most likely missing piece?"
+  - question: "You run a service on the EC2 launch type and a teammate says the cluster shows zero registered container instances. The EC2 instance is running with the ECS-optimized AMI. What is the most likely missing piece?"
     options:
       - "The instance has no ECS_CLUSTER value in /etc/ecs/ecs.config (user data) or no ECS instance role"
       - "The task definition has no memory setting"
@@ -15,7 +15,7 @@ quiz:
       - "The Fargate capacity provider is disabled"
     answer: 0
     explanation: "The ECS agent on the instance reads the cluster name from /etc/ecs/ecs.config and needs an instance role to register. Without them the instance never joins. The task definition and ECR namespace matter only after the instance is registered."
-  - q: "You want to run containers without patching or choosing EC2 instances, and each task must be isolated from other tasks. Which option fits?"
+  - question: "You want to run containers without patching or choosing EC2 instances, and each task must be isolated from other tasks. Which option fits?"
     options:
       - "EC2 launch type with a large instance"
       - "Fargate launch type"
@@ -23,7 +23,7 @@ quiz:
       - "ECR with image scanning"
     answer: 1
     explanation: "Fargate removes server management, and each Fargate task has its own isolation boundary. On the EC2 launch type you patch and size the instances, and several tasks share one kernel."
-  - q: "At the end of the lab you delete the ECS cluster but the bill keeps running. Which leftover is the most likely cause?"
+  - question: "At the end of the lab you delete the ECS cluster but the bill keeps running. Which leftover is the most likely cause?"
     options:
       - "The task definition revisions"
       - "The ECR repository namespace"

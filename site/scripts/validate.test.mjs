@@ -36,6 +36,15 @@ test('answer index out of range', () => {
   const e = errs(concept({ data: { kind: 'concept', status: 'done', quiz: [q(), q(), q(), q(), q({ answer: 7 })] } }));
   assert.ok(e.includes('quiz 5: answer index out of range'));
 });
+test('quiz question text is required', () => {
+  const bad = { options: ['a', 'b', 'c'], answer: 0, explanation: 'Because this explanation is long enough.' };
+  const e = errs(concept({ data: { kind: 'concept', status: 'done', quiz: [q(), q(), q(), q(), bad] } }));
+  assert.ok(e.includes('quiz 5: missing "question" text'));
+});
+test('quiz needs 3-5 options', () => {
+  const e = errs(concept({ data: { kind: 'concept', status: 'done', quiz: [q(), q(), q(), q(), q({ options: ['a', 'b'] })] } }));
+  assert.ok(e.includes('quiz 5: needs 3-5 options'));
+});
 test('short explanation', () => {
   const e = errs(concept({ data: { kind: 'concept', status: 'done', quiz: [q(), q(), q(), q(), q({ explanation: 'no' })] } }));
   assert.ok(e.includes('quiz 5: explanation missing or too short'));

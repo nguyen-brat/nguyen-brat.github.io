@@ -28,6 +28,8 @@ export function validateChapter({ data, content }, { ids }) {
   const min = MIN_QUIZ[data.kind] ?? 0;
   if (quiz.length < min) errors.push(`needs at least ${min} quiz questions, has ${quiz.length}`);
   quiz.forEach((q, i) => {
+    if (typeof q.question !== 'string' || !q.question.trim()) errors.push(`quiz ${i + 1}: missing "question" text`);
+    if (!Array.isArray(q.options) || q.options.length < 3 || q.options.length > 5) errors.push(`quiz ${i + 1}: needs 3-5 options`);
     if (!(q.answer >= 0 && q.answer < (q.options?.length ?? 0))) errors.push(`quiz ${i + 1}: answer index out of range`);
     if (!q.explanation || q.explanation.trim().length < 20) errors.push(`quiz ${i + 1}: explanation missing or too short`);
   });
