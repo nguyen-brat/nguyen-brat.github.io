@@ -6,6 +6,7 @@ const ids = new Set(['04-iam']);
 const conceptBody = [
   '## What it is', 'x', '## Key concepts', 'x', '## X vs Y', 'x',
   '```mermaid\ngraph TD; A-->B\n```',
+  '```mermaid\ngraph TD; C-->D\n```',
   '## Job notes', 'x', '## Cheat sheet', 'x',
   '## AWS docs', '[IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)',
 ].join('\n');
@@ -19,9 +20,13 @@ test('missing required section', () => {
   const e = errs(concept({ content: conceptBody.replace('## Cheat sheet', '## Other') }));
   assert.ok(e.includes('missing section "## Cheat sheet"'));
 });
-test('missing mermaid diagram', () => {
+test('needs at least 2 mermaid diagrams', () => {
   const e = errs(concept({ content: conceptBody.replace(/```mermaid[\s\S]*?```/, '') }));
-  assert.ok(e.includes('missing mermaid diagram'));
+  assert.ok(e.includes('needs at least 2 mermaid diagrams, has 1'));
+});
+test('too long is an error', () => {
+  const e = errs(concept({ content: conceptBody + '\n' + 'word '.repeat(2600) }));
+  assert.ok(e.some((x) => x.startsWith('too long:')));
 });
 test('too few quiz questions for concept', () => {
   const e = errs(concept({ data: { kind: 'concept', status: 'done', quiz: [q(), q()] } }));
@@ -53,7 +58,7 @@ test('lab chapter needs lab sections and 3 questions', () => {
   assert.ok(e.includes('missing section "## Cleanup"'));
   assert.ok(!e.some((x) => x.includes('quiz questions')));
 });
-test('intro chapter needs no diagram or X vs Y', () => {
-  const body = ['## What it is', 'x', '## Key concepts', 'x', '## Cheat sheet', 'x', '## AWS docs', '[d](https://docs.aws.amazon.com/)'].join('\n');
+test('intro chapter needs one diagram but no X vs Y', () => {
+  const body = ['## What it is', 'x', '```mermaid\ngraph TD; A-->B\n```', '## Key concepts', 'x', '## Cheat sheet', 'x', '## AWS docs', '[d](https://docs.aws.amazon.com/)'].join('\n');
   assert.deepEqual(errs({ data: { kind: 'intro', status: 'done', quiz: [q(), q(), q()] }, content: body }), []);
 });

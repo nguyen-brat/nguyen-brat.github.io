@@ -4,7 +4,8 @@ const REQUIRED = {
   intro: ['What it is', 'Key concepts', 'Cheat sheet', 'AWS docs'],
 };
 const MIN_QUIZ = { concept: 5, lab: 3, intro: 3 };
-const NEEDS_DIAGRAM = { concept: true, lab: true, intro: false };
+const MIN_DIAGRAMS = { concept: 2, lab: 2, intro: 1 };
+const MAX_WORDS = 2500;
 
 export function headings(content) {
   return [...content.matchAll(/^##\s+(.+?)\s*$/gm)].map((m) => m[1]);
@@ -18,7 +19,11 @@ export function validateChapter({ data, content }, { ids }) {
   for (const h of REQUIRED[data.kind] ?? []) {
     if (!hs.includes(h)) errors.push(`missing section "## ${h}"`);
   }
-  if (NEEDS_DIAGRAM[data.kind] && !/```mermaid\n/.test(content)) errors.push('missing mermaid diagram');
+  const diagrams = (content.match(/```mermaid\n/g) ?? []).length;
+  const minD = MIN_DIAGRAMS[data.kind] ?? 0;
+  if (diagrams < minD) errors.push(`needs at least ${minD} mermaid diagrams, has ${diagrams}`);
+  const words = content.replace(/```[\s\S]*?```/g, ' ').split(/\s+/).filter(Boolean).length;
+  if (words > MAX_WORDS) errors.push(`too long: ${words} words (max ${MAX_WORDS}); cut text, use a diagram or table`);
   const quiz = data.quiz ?? [];
   const min = MIN_QUIZ[data.kind] ?? 0;
   if (quiz.length < min) errors.push(`needs at least ${min} quiz questions, has ${quiz.length}`);
