@@ -1,0 +1,27 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Quiz from '../../components/Quiz.astro';
+
+export async function getStaticPaths() {
+  const all = (await getCollection('chapters')).sort((a, b) => a.data.section - b.data.section);
+  return all.map((entry, i) => ({ params: { id: entry.id }, props: { entry, prev: all[i - 1], next: all[i + 1] } }));
+}
+const { entry, prev, next } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+<Layout title={`${d.section}. ${d.title}`} current={entry.id}>
+  <p class="meta">{d.part} · {d.kind === 'lab' ? 'Lab' : 'Chapter'} {d.section} · about {d.readingTime} min read</p>
+  <h1>{d.title}</h1>
+  <details class="lectures">
+    <summary>Course lectures covered ({d.lectures.length})</summary>
+    <ul>{d.lectures.map((l) => <li>{l}</li>)}</ul>
+  </details>
+  <article class="prose"><Content /></article>
+  <Quiz questions={d.quiz} />
+  <nav class="pager">
+    {prev ? <a href={`/chapters/${prev.id}/`}>← {prev.data.section}. {prev.data.title}</a> : <span />}
+    {next ? <a href={`/chapters/${next.id}/`}>{next.data.section}. {next.data.title} →</a> : <span />}
+  </nav>
+</Layout>

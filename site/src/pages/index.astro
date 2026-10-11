@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import parts from '../data/parts.json';
+
+const chapters = (await getCollection('chapters')).sort((a, b) => a.data.section - b.data.section);
+const done = chapters.filter((c) => c.data.status === 'done').length;
+---
+<Layout title="Home">
+  <h1>AWS Reading Course</h1>
+  <p>Read-only version of the Udemy course <em>AWS Architecting: The Ultimate Course</em>: {chapters.length} chapters in course order, each with a cheat sheet, comparison tables, diagrams and practice questions. {done} of {chapters.length} chapters written.</p>
+  {parts.map((p) => (
+    <section>
+      <h2>{p.name}</h2>
+      <div class="grid">
+        {chapters.filter((c) => c.data.section >= p.from && c.data.section <= p.to).map((c) => (
+          <a class="card" href={`/chapters/${c.id}/`}>
+            <strong>{c.data.section}. {c.data.title}</strong><br />
+            <span class="meta">{c.data.kind === 'lab' ? 'Lab' : 'Chapter'} · {c.data.status === 'done' ? `${c.data.readingTime} min` : 'coming soon'}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+</Layout>
