@@ -1,0 +1,5 @@
+.profile/
+.profile2/
+node_modules/
+dist/
+.astro/
