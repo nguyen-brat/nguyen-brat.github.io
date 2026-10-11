@@ -11,7 +11,7 @@
 **Spec:** `docs/superpowers/specs/2026-10-11-aws-reading-site-design.md`
 
 **Deviations from spec (decided while planning, same intent):**
-- The 17 labs are course sections numbered 7, 9, 11, 13, 15, 16, 17, 22, 25, 27, 36, 38, 41, 42, 44–47, 49, 51, 54–58, so they are chapters with `kind: lab` in the same collection instead of a separate `labs/` folder. This keeps course order and one sidebar.
+- The lab sections (25 chapters, 17 numbered labs) are course sections numbered 7, 9, 11, 13, 15, 16, 17, 22, 25, 27, 36, 38, 41, 42, 44–47, 49, 51, 54–58, so they are chapters with `kind: lab` in the same collection instead of a separate `labs/` folder. This keeps course order and one sidebar.
 - Mermaid renders in the browser (bundled, works offline) instead of at build time, because build-time rendering needs a headless browser.
 
 **Facts the engineer needs**

@@ -14,7 +14,7 @@ A read-only website for learning AWS well enough to get a job, following the ord
 - Not included: progress tracking, accounts, analytics.
 
 ## Content model
-One chapter per course section (60), same order, grouped into the course's blocks (IAM, networking, compute, storage, databases, serverless, IaC, CI/CD, edge, DR, ...). The 17 labs (course sections with titles starting "LAB") become written walkthroughs, stored as chapters with `kind: lab` in the same collection (keeps course order and one sidebar): what you build, architecture, steps with console/CLI commands, common mistakes, cleanup to avoid charges, and a "how this looks on the job" note.
+One chapter per course section (60), same order, grouped into the course's blocks (IAM, networking, compute, storage, databases, serverless, IaC, CI/CD, edge, DR, ...). The 25 lab sections (course sections with titles starting "LAB", covering 17 numbered labs) become written walkthroughs, stored as chapters with `kind: lab` in the same collection (keeps course order and one sidebar): what you build, architecture, steps with console/CLI commands, common mistakes, cleanup to avoid charges, and a "how this looks on the job" note.
 
 Chapter template (in this order): what it is + "use it when" rule; key concepts; X vs Y table; diagram; job notes / common mistakes; cheat-sheet; 5–8 practice questions; links to AWS docs. IaC and CI/CD chapters add a "do it yourself" exercise.
 
